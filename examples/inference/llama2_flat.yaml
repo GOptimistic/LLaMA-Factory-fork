@@ -1,4 +1,4 @@
 model_name_or_path: /home/incoming/LLM/llama2/llama2-7b
-adapter_name_or_path: saves/llama2-7b-flat/lora/sft/checkpoint-1000
+adapter_name_or_path: saves/llama2-7b-flat/lora/sft
 template: llama2
 finetuning_type: lora
