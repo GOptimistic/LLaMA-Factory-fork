@@ -190,7 +190,6 @@ def run_batch_finetune() -> None:
         response = response.strip()
         response = response.split('\n', 1)[0]
         response = re.sub(r'[^a-zA-Z0-9.\- ]', '', response)
-        response = response + '\n'
         print('Prompt {} is done. {}'.format(i, response))
         pred_list.append(response)
     print(len(pred_list))
