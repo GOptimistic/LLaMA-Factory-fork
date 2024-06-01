@@ -2,6 +2,15 @@
   "identity": {
     "file_name": "identity.json"
   },
+  "llama_flat_train": {
+    "file_name": "llama_flat_train.json"
+  },
+  "llama_flat_test": {
+    "file_name": "llama_flat_test.json"
+  },
+  "llama_flat_valid": {
+    "file_name": "llama_flat_valid.json"
+  },
   "alpaca_en_demo": {
     "file_name": "alpaca_en_demo.json"
   },
