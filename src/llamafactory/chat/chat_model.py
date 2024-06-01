@@ -162,18 +162,23 @@ def run_batch_finetune() -> None:
     print("Welcome to the Batch finetune CLI application, use `clear` to remove the history, use `exit` to exit the application.")
 
     try:
-        query = input("\nInference File Path: ")
+        file_path = input("\nInference File Path: ")
     except UnicodeDecodeError:
         print("Detected decoding error at the inputs, please set the terminal encoding to utf-8.")
     except Exception:
         raise
 
-    file_path = query.split(';')[0]
-    output_dir = query.split(';')[1]
     # output_dir = "/home/LAB/guanz/gz_graduation/LLaMA-Factory-fork/predictions/qwen"
     summary_list = []
     with open(file_path, 'r', encoding='utf-8') as file:
         prompt_list = json.load(file)
+
+    try:
+        output_dir = input("\nOutput Path: ")
+    except UnicodeDecodeError:
+        print("Detected decoding error at the inputs, please set the terminal encoding to utf-8.")
+    except Exception:
+        raise
 
     pred_list = []
     for i in range(len(prompt_list)):
