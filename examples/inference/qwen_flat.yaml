@@ -1,0 +1,4 @@
+model_name_or_path: /home/incoming/LLM/qwen/qwen-7b-chat
+adapter_name_or_path: saves/qwen-7b-chat/lora/sft/checkpoint-1000
+template: qwen
+finetuning_type: lora
