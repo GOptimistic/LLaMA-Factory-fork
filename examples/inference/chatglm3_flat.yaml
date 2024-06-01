@@ -1,0 +1,4 @@
+model_name_or_path: /home/incoming/LLM/chatglm/chatglm3
+adapter_name_or_path: saves/chatglm3/lora/sft/checkpoint-1000
+template: chatglm3
+finetuning_type: lora
