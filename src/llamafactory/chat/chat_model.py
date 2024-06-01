@@ -179,6 +179,7 @@ def run_batch_finetune() -> None:
         messages = []
         messages.append({"role": "user", "content": prompt['instruction']})
         response = chat_model.chat(messages, max_new_tokens=30)[0].response_text
+        response = response.strip()
         print('Prompt {} is done. {}'.format(i, response))
         pred_list.append(response)
     print(len(pred_list))
@@ -224,6 +225,7 @@ def run_single_finetune() -> None:
         print("Assistant: ", end="", flush=True)
 
         response = chat_model.chat(messages, max_new_tokens=30)[0]
+        response = response.response_text.strip()
 
-        print(response.response_text, end="", flush=True)
+        print(response, end="", flush=True)
         print()
