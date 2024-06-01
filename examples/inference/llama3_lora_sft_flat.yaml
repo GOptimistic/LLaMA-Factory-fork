@@ -1,0 +1,4 @@
+model_name_or_path: /home/incoming/LLM/llama3/llama3-8b
+adapter_name_or_path: saves/llama3-8b-flat/lora/sft
+template: llama3
+finetuning_type: lora

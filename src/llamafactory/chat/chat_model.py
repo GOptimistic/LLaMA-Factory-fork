@@ -1,4 +1,5 @@
 import asyncio
+import json
 from threading import Thread
 from typing import TYPE_CHECKING, Any, AsyncGenerator, Dict, Generator, List, Optional, Sequence
 
@@ -138,3 +139,90 @@ def run_chat() -> None:
             response += new_text
         print()
         messages.append({"role": "assistant", "content": response})
+
+def write_to_txt(str_list, txt_path):
+    with open(txt_path, 'w', encoding='utf-8') as file:
+        # 将字符串数组逐行写入文件，并在每行末尾添加换行符
+        for line in str_list:
+            file.write(line + '\n')
+
+
+def run_batch_finetune() -> None:
+    try:
+        import platform
+
+        if platform.system() != "Windows":
+            import readline  # noqa: F401
+    except ImportError:
+        print("Install `readline` for a better experience.")
+
+    chat_model = ChatModel()
+
+    print("Welcome to the Batch finetune CLI application, use `clear` to remove the history, use `exit` to exit the application.")
+
+    try:
+        query = input("\nInference File Path: ")
+    except UnicodeDecodeError:
+        print("Detected decoding error at the inputs, please set the terminal encoding to utf-8.")
+    except Exception:
+        raise
+
+    output_dir = "/home/LAB/guanz/gz_graduation/LLaMA-Factory-fork/predictions/llama3"
+    summary_list = []
+    with open(query, 'r', encoding='utf-8') as file:
+        prompt_list = json.load(file)
+
+    pred_list = []
+    for i in range(len(prompt_list)):
+        prompt = prompt_list[i]
+        summary_list.append(prompt['output'])
+        messages = []
+        messages.append({"role": "user", "content": prompt['instruction']})
+        response = chat_model.chat(messages, max_new_tokens=30)
+        print('Prompt {} is done. {}'.format(i, response))
+        pred_list.append(response)
+    print(len(pred_list))
+    write_to_txt(pred_list, output_dir + '/pred.txt')
+    write_to_txt(summary_list, output_dir + '/target.txt')
+    print('Inference done.')
+
+
+def run_single_finetune() -> None:
+    try:
+        import platform
+
+        if platform.system() != "Windows":
+            import readline  # noqa: F401
+    except ImportError:
+        print("Install `readline` for a better experience.")
+
+    chat_model = ChatModel()
+
+    print(
+        "Welcome to the Single finetune CLI application, use `clear` to remove the history, use `exit` to exit the application.")
+
+    while True:
+        try:
+            query = input("\nUser: ")
+        except UnicodeDecodeError:
+            print("Detected decoding error at the inputs, please set the terminal encoding to utf-8.")
+            continue
+        except Exception:
+            raise
+
+        if query.strip() == "exit":
+            break
+
+        if query.strip() == "clear":
+            messages = []
+            torch_gc()
+            print("History has been removed.")
+            continue
+
+        messages = []
+        messages.append({"role": "user", "content": query})
+        print("Assistant: ", end="", flush=True)
+
+        response = chat_model.chat(messages, max_new_tokens=30)
+        print(response, end="", flush=True)
+        print()

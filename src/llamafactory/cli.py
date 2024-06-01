@@ -6,7 +6,7 @@ from enum import Enum, unique
 
 from . import launcher
 from .api.app import run_api
-from .chat.chat_model import run_chat
+from .chat.chat_model import run_chat, run_batch_finetune, run_single_finetune
 from .eval.evaluator import run_eval
 from .extras.logging import get_logger
 from .extras.misc import get_device_count
@@ -57,6 +57,8 @@ class Command(str, Enum):
     WEBUI = "webui"
     VER = "version"
     HELP = "help"
+    BATCHFT = "batchft"
+    SINGLEFT = "singleft"
 
 
 def main():
@@ -104,5 +106,9 @@ def main():
         print(WELCOME)
     elif command == Command.HELP:
         print(USAGE)
+    elif command == Command.BATCHFT:
+        run_batch_finetune()
+    elif command == Command.SINGLEFT:
+        run_single_finetune()
     else:
         raise NotImplementedError("Unknown command: {}".format(command))
