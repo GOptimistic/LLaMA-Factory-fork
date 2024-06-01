@@ -168,17 +168,10 @@ def run_batch_finetune() -> None:
     except Exception:
         raise
 
-    # output_dir = "/home/LAB/guanz/gz_graduation/LLaMA-Factory-fork/predictions/qwen"
+    output_dir = "/home/LAB/guanz/gz_graduation/LLaMA-Factory-fork/predictions/llama2"
     summary_list = []
     with open(file_path, 'r', encoding='utf-8') as file:
         prompt_list = json.load(file)
-
-    try:
-        output_dir = input("\nOutput Path: ")
-    except UnicodeDecodeError:
-        print("Detected decoding error at the inputs, please set the terminal encoding to utf-8.")
-    except Exception:
-        raise
 
     pred_list = []
     for i in range(len(prompt_list)):
