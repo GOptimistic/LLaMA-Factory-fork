@@ -1,5 +1,6 @@
 import asyncio
 import json
+import re
 from threading import Thread
 from typing import TYPE_CHECKING, Any, AsyncGenerator, Dict, Generator, List, Optional, Sequence
 
@@ -167,7 +168,8 @@ def run_batch_finetune() -> None:
     except Exception:
         raise
 
-    output_dir = "/home/LAB/guanz/gz_graduation/LLaMA-Factory-fork/predictions/llama3"
+    # output_dir = "/home/LAB/guanz/gz_graduation/LLaMA-Factory-fork/predictions/llama3"
+    output_dir = input("\nOutput Path: ")
     summary_list = []
     with open(query, 'r', encoding='utf-8') as file:
         prompt_list = json.load(file)
@@ -180,6 +182,9 @@ def run_batch_finetune() -> None:
         messages.append({"role": "user", "content": prompt['instruction']})
         response = chat_model.chat(messages, max_new_tokens=30)[0].response_text
         response = response.strip()
+        response = response.split('\n', 1)[0]
+        response = re.sub(r'[^a-zA-Z0-9.\- ]', '', response)
+        response = response + '\n'
         print('Prompt {} is done. {}'.format(i, response))
         pred_list.append(response)
     print(len(pred_list))
