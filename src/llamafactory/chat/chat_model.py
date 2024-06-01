@@ -168,7 +168,7 @@ def run_batch_finetune() -> None:
     except Exception:
         raise
 
-    output_dir = "/home/LAB/guanz/gz_graduation/LLaMA-Factory-fork/predictions/llama2"
+    output_dir = "/home/LAB/guanz/gz_graduation/LLaMA-Factory-fork/predictions/chatglm3"
     summary_list = []
     with open(file_path, 'r', encoding='utf-8') as file:
         prompt_list = json.load(file)
