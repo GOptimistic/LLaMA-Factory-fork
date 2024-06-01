@@ -168,8 +168,8 @@ def run_batch_finetune() -> None:
     except Exception:
         raise
 
-    file_path = query.split(';', 1)[0]
-    output_dir = query.split(';', 1)[1]
+    file_path = query.split(';')[0]
+    output_dir = query.split(';')[1]
     # output_dir = "/home/LAB/guanz/gz_graduation/LLaMA-Factory-fork/predictions/qwen"
     summary_list = []
     with open(file_path, 'r', encoding='utf-8') as file:
